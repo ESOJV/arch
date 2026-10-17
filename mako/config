@@ -1,0 +1,33 @@
+# Monochrome — same palette as waybar/wofi:
+# fg #efefef · bg #0e0e0e (90%) · muted #909090 · inactive #2b2b2b
+
+font=JetBrainsMono Nerd Font Propo 11
+background-color=#0e0e0ee6
+text-color=#efefef
+progress-color=over #2b2b2b
+
+border-size=0
+border-radius=15
+padding=12
+margin=10
+width=350
+height=120
+max-icon-size=32
+anchor=top-right
+
+# Keep notifications unobtrusive: auto-dismiss after 2s even when the app
+# asks to stay on screen (ignore-timeout), and never stack more than 3.
+default-timeout=2000
+ignore-timeout=1
+max-visible=3
+
+# Critical notifications (battery, etc.) stay until dismissed.
+[urgency=critical]
+default-timeout=0
+ignore-timeout=0
+
+# Do-not-disturb: toggle with `makoctl mode -t do-not-disturb`
+# (bound to ALT+SHIFT+D in hyprland.conf). Notifications queue silently
+# and appear when you toggle back.
+[mode=do-not-disturb]
+invisible=1

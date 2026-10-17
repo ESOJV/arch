@@ -1,0 +1,41 @@
+# ~/.bashrc  — migrated from home.nix (initExtra + aliases + sessionVariables)
+# Symlinked by bootstrap-arch.sh to ~/.bashrc. Edit here; it's version-controlled.
+
+# If not running interactively, don't do anything.
+[[ $- != *i* ]] && return
+
+# --- aliases (home.nix shellAliases) ---
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+# orca/bambu run via flatpak (install: flatpak install flathub com.softfever3d.orca-slicer com.bambulab.BambuStudio)
+alias orca-slicer='flatpak run com.softfever3d.orca-slicer'
+alias bambu-studio='flatpak run com.bambulab.BambuStudio'
+
+# --- session variables (home.nix sessionVariables) ---
+export PAGER='less -R'
+
+# --- prompt: working dir + current git branch ---
+git_branch() {
+  git branch 2>/dev/null | grep '^\*' | sed 's/\* //'
+}
+PS1='\W$(git_branch 2>/dev/null | sed "s/.*/ (&)/") > '
+
+# --- `tmux ls` opens the fzf session picker; everything else is real tmux ---
+tmux() {
+  if [ "$1" = "ls" ]; then
+    shift
+    ~/scripts/tmux/tmux-ls.sh "$@"
+  else
+    command tmux "$@"
+  fi
+}
+
+# --- centered, narrower man pages ---
+man() {
+  local term_width; term_width=$(tput cols)
+  local width=$(( term_width * 6 / 10 ))
+  local pad=$(( (term_width - width) / 2 ))
+  local PAD; PAD=$(printf '%*s' "$pad" "")
+  MANWIDTH=$width GROFF_NO_SGR= command man "$@" | sed "s/^/$PAD/" | less -R
+}

@@ -1,0 +1,14 @@
+# ~/.bash_profile — migrated from home.nix (sessionPath + profileExtra)
+# Symlinked by bootstrap-arch.sh to ~/.bash_profile.
+
+# --- PATH (home.nix home.sessionPath) ---
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$HOME/bin:$HOME/pi/bin:$PATH"
+
+# Load interactive shell config.
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+# --- Auto-start Hyprland on TTY1 (replaces home.nix profileExtra start-hyprland) ---
+# With getty autologin on tty1 this logs you straight into the compositor.
+if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = "1" ]; then
+  exec Hyprland
+fi

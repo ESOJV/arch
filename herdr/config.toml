@@ -1,0 +1,88 @@
+onboarding = false
+# herdr — tuned to match my kitty (zenbones_dark) + tmux muscle memory.
+# Live-editable via out-of-store symlink (see home.nix). After editing, run:
+#   herdr server reload-config   (or prefix+shift+r inside herdr)
+# NOTE: font is set by the terminal (kitty: JetBrainsMono Nerd Font 14),
+#       herdr only themes its own chrome.
+
+# ---------------------------------------------------------------------------
+# Theme — inherit kitty's live palette (zenbones_dark) directly.
+# ---------------------------------------------------------------------------
+[theme]
+name = "terminal"          # use the outer terminal's own colors (kitty)
+
+# Previous hand-matched + desaturated palette, kept for easy revert.
+# Re-enable this block (and set name back to "kanagawa") to go muted again.
+# [theme.custom]
+# panel_bg    = "#1C1917"    # kitty background
+# text        = "#B4BDC3"    # kitty foreground
+# subtext0    = "#888F94"    # dim (color15)
+# surface_dim = "#262220"
+# surface0    = "#352F2D"    # inactive tab bg
+# surface1    = "#3D4042"    # selection bg
+# overlay0    = "#403833"    # color8
+# overlay1    = "#5A544F"
+# accent      = "#5F7E92"    # muted steel blue
+# red    = "#B0727A"
+# green  = "#869175"
+# yellow = "#A98D74"
+# blue   = "#6E8CA0"
+# mauve  = "#94808E"
+# teal   = "#708E92"
+# peach  = "#B08A72"
+
+# ---------------------------------------------------------------------------
+# Keybindings — port of ~/.config/tmux/tmux.conf.
+# herdr "tab" ≈ tmux "window"; herdr "workspace" ≈ tmux "session".
+# ---------------------------------------------------------------------------
+[keys]
+prefix = "ctrl+space"          # tmux: set -g prefix C-Space
+
+# --- session / workspace + settings (swapped so muscle memory holds) ---
+workspace_picker = "prefix+s"  # tmux: bind s choose-tree -Zs
+settings         = "prefix+shift+s"   # moved off prefix+s
+detach           = "prefix+d"  # tmux default detach key
+
+# --- panes (vim selection: default already matches) ---
+focus_pane_left  = "prefix+h"
+focus_pane_down  = "prefix+j"
+focus_pane_up    = "prefix+k"
+focus_pane_right = "prefix+l"
+close_pane       = "prefix+w"  # tmux: bind w kill-pane
+last_pane        = "prefix+space"      # closest analog to tmux last-window
+split_vertical   = "prefix+v"          # right / side-by-side (tmux %)
+split_horizontal = "prefix+minus"      # down / stacked       (tmux ")
+zoom             = "prefix+z"
+resize_mode      = "prefix+r"
+toggle_sidebar   = "prefix+b"
+copy_mode        = "prefix+["  # tmux-style: enter vi copy/scroll mode
+
+# --- tabs (= tmux windows) ---
+new_tab      = "prefix+c"      # tmux: new-window on c (instant, auto-named)
+rename_tab   = "prefix+shift+c"        # prefix+C to name the current tab
+previous_tab = "prefix+p"
+next_tab     = "prefix+n"
+switch_tab   = "prefix+1..9"   # base-index-1 style direct jump
+
+# ---------------------------------------------------------------------------
+# UI — mouse on, command-name pane labels (like tmux automatic-rename).
+# ---------------------------------------------------------------------------
+[ui]
+accent = "#B8B8B8"                          # highlights/borders → neutral gray (matches monochrome rice)
+prompt_new_tab_name = false                 # auto-name new tabs (like tmux), no prompt
+mouse_capture = true                        # tmux: set -g mouse on
+show_agent_labels_on_pane_borders = true    # ≈ automatic-rename to pane cmd
+
+# Sidebar rows: fall back to the running command (btop/shell/…) when a tab has
+# no manual name and no detected agent — like tmux automatic-rename.
+[ui.sidebar.agents]
+rows = [["number", "state_icon", "workspace", "tab"], ["agent", "command"]]
+
+# ---------------------------------------------------------------------------
+# Session resume — after a full server restart (e.g. a reboot), bring supported
+# AI-agent panes back into their PREVIOUS conversation instead of a dead shell.
+# Works only for panes whose integration reports a session ref (pi does, via the
+# herdr-agent-state extension). Also keep recent scrollback across restarts.
+# ---------------------------------------------------------------------------
+[session]
+resume_agents_on_restore = true

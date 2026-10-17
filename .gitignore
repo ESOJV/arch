@@ -1,0 +1,20 @@
+# Secrets / credentials — never commit
+*.env
+.env
+*.key
+*.pem
+id_*
+*_rsa
+*_ed25519
+*token*
+*secret*
+
+# herdr runtime (sockets, logs, session state — only config.toml is tracked)
+herdr/*.sock
+herdr/*.log
+herdr/session.json
+herdr/logs/
+
+# editor / OS cruft
+*.swp
+.DS_Store

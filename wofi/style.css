@@ -1,0 +1,55 @@
+/* Monochrome — same palette as waybar colors/colors.css:
+   fg #efefef · bg rgba(14,14,14,0.90) · inactive #2b2b2b · muted #909090 */
+
+* {
+    font-family: 'JetBrainsMono Nerd Font Propo';
+    font-weight: 700;
+    font-size: 14px;
+}
+
+window {
+    background-color: transparent;
+}
+
+#outer-box {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: rgba(14, 14, 14, 0.90);
+    color: #efefef;
+}
+
+#input {
+    margin-bottom: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #2b2b2b;
+    color: #efefef;
+}
+
+#input image {
+    color: #909090;
+}
+
+#input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#entry {
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+
+#entry:selected {
+    background-color: #2b2b2b;
+    outline: none;
+}
+
+#text {
+    color: #efefef;
+}
+
+#img {
+    margin-right: 8px;
+}

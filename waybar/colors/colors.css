@@ -1,0 +1,11 @@
+/* Monochrome */
+
+@define-color fg           #efefef;
+@define-color module-bg    rgba(14, 14, 14, 0.90);
+@define-color tooltip-bg   rgba(8,  8,  8,  0.96);
+@define-color workspace-fg #efefef;
+@define-color inactive     #2b2b2b;
+@define-color red          #ffffff;
+@define-color yellow       #909090;
+@define-color green        #b0b0b0;
+@define-color blue         #efefef;
